@@ -1,0 +1,25 @@
+spring.application.name: config-server
+server:
+  port: 8888
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  profiles:
+    active: vault, git
+  cloud:
+    config:
+      server:
+        vault:
+          port: 8200
+          host: 127.0.0.1
+          scheme: http
+          authentication: TOKEN
+          token: vault-secret
+          kv-version: 2
+        git:
+          uri: https://github.com/empowering-properties/configuration.git
+          timeout: 10
+          force-pull: true
+          refresh-rate: 10
+          search-paths:
+            - '{application}'
